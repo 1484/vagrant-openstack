@@ -46,8 +46,8 @@ sudo sed -i "s/^\[vxlan\]/\[vxlan\]\nenable_vxlan = True\nlocal_ip = 10.0.0.102\
 sudo sed -i "s/^\[securitygroup\]/\[securitygroup\]\nenable_security_group = True\nfirewall_driver = neutron.agent.linux.iptables_firewall.IptablesFirewallDriver\n/" /etc/neutron/plugins/ml2/linuxbridge_agent.ini
 sudo sh -c "cat <<'EOF'>>/etc/nova/nova.conf
 [neutron]
-url = http:\/\/controller:9696
-auth_url = http:\/\/controller:35357
+url = http://controller:9696
+auth_url = http://controller:35357
 auth_type = password
 project_domain_name = default
 user_domain_name = default

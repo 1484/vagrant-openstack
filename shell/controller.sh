@@ -177,10 +177,8 @@ sudo apt-get install openstack-dashboard -y
 sudo sed -i "s/^WEBROOT = '\/'/WEBROOT = '\/horizon\/'/" /etc/openstack-dashboard/local_settings.py
 sudo sh -c "echo SESSION_ENGINE = \'django.contrib.sessions.backends.cache\' >> /etc/openstack-dashboard/local_settings.py"
 sudo sed -i "s/^OPENSTACK_HOST = \"127.0.0.1\"/OPENSTACK_HOST = \"controller\"/" /etc/openstack-dashboard/local_settings.py
-sudo sed -i "s/OPENSTACK_KEYSTONE_URL = \"http:\/\/%s:5000\/v2.0/OPENSTACK_KEYSTONE_URL = \"ht
-tp:\/\/%s:5000\/v3/" /etc/openstack-dashboard/local_settings.py
-sudo sed -i "s/OPENSTACK_KEYSTONE_DEFAULT_ROLE = \"_member_\"/OPENSTACK_KEYSTONE_DEFAULT_ROLE = \"user\"/" /etc/openstack-dashboard/local_settings.py
-sudo sed -i "s/TIME_ZONE = \"UTC\"/TIME_ZONE = \"Asia\/Tokyo\"/" /etc/openstack-dashboard/loca
-l_settings.py
+sudo sed -i "s/^OPENSTACK_KEYSTONE_URL = \"http:\/\/%s:5000\/v2.0/OPENSTACK_KEYSTONE_URL = \"http:\/\/%s:5000\/v3/" /etc/openstack-dashboard/local_settings.py
+sudo sed -i "s/^OPENSTACK_KEYSTONE_DEFAULT_ROLE = \"_member_\"/OPENSTACK_KEYSTONE_DEFAULT_ROLE = \"user\"/" /etc/openstack-dashboard/local_settings.py
+sudo sed -i "s/^TIME_ZONE = \"UTC\"/TIME_ZONE = \"Asia\/Tokyo\"/" /etc/openstack-dashboard/local_settings.py
 sudo service apache2 restart
 
