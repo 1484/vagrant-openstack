@@ -45,6 +45,14 @@ openstack project create --domain default --description "Demo Project" demo
 openstack user create --domain default --password password demo
 openstack role create user
 openstack role add --project demo --user demo user
+
+sudo sed -i "s/^pipeline = cors sizelimit http_proxy_to_wsgi osprofiler url_normalize request_id admin_token_auth build_auth_context token_auth json_body ec2_extension public_service/pipeline = cors sizelimit http_proxy_to_wsgi osprofiler url_normalize request_id build_auth_context token_auth json_body ec2_extension public_service/" /etc/keystone/keystone-paste.ini
+
+sudo sed -i "s/^pipeline = cors sizelimit http_proxy_to_wsgi osprofiler url_normalize request_id admin_token_auth build_auth_context token_auth json_body ec2_extension s3_extension admin_service/pipeline = cors sizelimit http_proxy_to_wsgi osprofiler url_normalize request_id build_auth_context token_auth json_body ec2_extension s3_extension admin_service/" /etc/keystone/keystone-paste.ini
+
+sudo sed -i "s/^pipeline = cors sizelimit http_proxy_to_wsgi osprofiler url_normalize request_id admin_token_auth build_auth_context token_auth json_body ec2_extension_v3 s3_extension service_v3/pipeline = cors sizelimit http_proxy_to_wsgi osprofiler url_normalize request_id build_auth_context token_auth json_body ec2_extension_v3 s3_extension service_v3/" /etc/keystone/keystone-paste.ini
+
+
 sudo mysql -u root -ppassword << EOF
 CREATE DATABASE glance;
 GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'localhost' \
@@ -180,5 +188,6 @@ sudo sed -i "s/^OPENSTACK_HOST = \"127.0.0.1\"/OPENSTACK_HOST = \"controller\"/"
 sudo sed -i "s/^OPENSTACK_KEYSTONE_URL = \"http:\/\/%s:5000\/v2.0/OPENSTACK_KEYSTONE_URL = \"http:\/\/%s:5000\/v3/" /etc/openstack-dashboard/local_settings.py
 sudo sed -i "s/^OPENSTACK_KEYSTONE_DEFAULT_ROLE = \"_member_\"/OPENSTACK_KEYSTONE_DEFAULT_ROLE = \"user\"/" /etc/openstack-dashboard/local_settings.py
 sudo sed -i "s/^TIME_ZONE = \"UTC\"/TIME_ZONE = \"Asia\/Tokyo\"/" /etc/openstack-dashboard/local_settings.py
+sudo sed -i "s/127.0.0.1:11211/controller:11211/" /etc/openstack-dashboard/local_settings.py
+sudo sed -i ':loop; N; $!b loop; s/#OPENSTACK_API_VERSIONS = {\n#    "data-processing": 1.1,\n#    "identity": 3,\n#    "image": 2,\n#    "volume": 2,\n#    "compute": 2,\n#}\n/OPENSTACK_API_VERSIONS = {\n    "data-processing": 1.1,\n    "identity": 3,\n    "image": 2,\n    "volume": 2,\n    "compute": 2,\n}\n/' /etc/openstack-dashboard/local_settings.py
 sudo service apache2 restart
-
