@@ -17,6 +17,9 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :controller do | controller |
     controller.vm.hostname = "controller"
+    controller.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", 4192]
+    end
     controller.vm.network :private_network, ip: "10.0.0.101", virtualbox__intnet: "intnet"
     controller.vm.network :forwarded_port, guest: 80, host: 80, protocol: "tcp", host_ip: "empty"
     controller.vm.provision "shell", path: "shell/controller.sh"
@@ -24,6 +27,9 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :compute do | compute |
     compute.vm.hostname = "compute"
+    compute.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", 2048]
+    end
     compute.vm.network :private_network, ip: "10.0.0.102", virtualbox__intnet: "intnet"
     compute.vm.provision "shell", path: "shell/compute.sh"
   end
@@ -62,13 +68,14 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  config.vm.provider "virtualbox" do |vb|
+  #  config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
   #
-  #   # Customize the amount of memory on the VM:
-    vb.memory = "3584"
-  end
+  #
+  # Customize the amount of memory on the VM:
+  #      vb.memory = "4192"
+  #  end
   #
   # View the documentation for the provider you are using for more
   # information on available options.
