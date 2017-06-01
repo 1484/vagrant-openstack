@@ -16,7 +16,7 @@ sudo rabbitmqctl set_permissions openstack ".*" ".*" ".*"
 cp /vagrant/settings/admin-openrc  ~/admin-openrc
 cp /vagrant/settings/demo-openrc ~/demo-openrc
 sudo apt-get install memcached python-memcache -y
-sudo sed -i "s/^-l 127.0.0.1/-l 10.0.0.101/" /etc/memcached.conf
+sudo sed -i "s/^-l 127.0.0.1/-l 10.0.0.4/" /etc/memcached.conf
 sudo service memcached restart
 sudo mysql -u root -ppassword << EOF
 CREATE DATABASE keystone;
@@ -98,7 +98,7 @@ openstack endpoint create --region RegionOne compute public http://controller:87
 openstack endpoint create --region RegionOne compute internal http://controller:8774/v2.1/%\(tenant_id\)s
 openstack endpoint create --region RegionOne compute admin http://controller:8774/v2.1/%\(tenant_id\)s
 sudo apt-get install nova-api nova-conductor nova-consoleauth nova-novncproxy nova-scheduler -y
-sudo sed -i "s/^\[DEFAULT\]/\[DEFAULT\]\nenabled_apis = osapi_compute,metadata\ntransport_url = rabbit:\/\/openstack:password@controller\nauth_strategy = keystone\nuse_neutron = True\nfirewall_driver = nova.virt.firewall.NoopFirewallDriver\nmy_ip = 10.0.0.101\n/" /etc/nova/nova.conf
+sudo sed -i "s/^\[DEFAULT\]/\[DEFAULT\]\nenabled_apis = osapi_compute,metadata\ntransport_url = rabbit:\/\/openstack:password@controller\nauth_strategy = keystone\nuse_neutron = True\nfirewall_driver = nova.virt.firewall.NoopFirewallDriver\nmy_ip = 10.0.0.4\n/" /etc/nova/nova.conf
 sudo sed -i "s/^connection/#connection/g" /etc/nova/nova.conf
 sudo sed -i "s/^\[api_database\]/\[api_database\]\nconnection = mysql+pymysql:\/\/nova:password@controller\/nova_api\n/" /etc/nova/nova.conf
 sudo sed -i "s/^\[database\]/\[database\]\nconnection = mysql+pymysql:\/\/nova:password@controller\/nova\n/" /etc/nova/nova.conf
@@ -153,8 +153,8 @@ sudo sed -i "s/^\[ml2\]/\[ml2\]\ntype_drivers = flat,vlan,vxlan\ntenant_network_
 sudo sed -i "s/^\[ml2_type_flat\]/\[ml2_type_flat\]\nflat_networks = provider\n/" /etc/neutron/plugins/ml2/ml2_conf.ini
 sudo sed -i "s/^\[ml2_type_vxlan\]/\[ml2_type_vxlan\]\nvni_ranges = 1:1000\n/" /etc/neutron/plugins/ml2/ml2_conf.ini
 sudo sed -i "s/^\[securitygroup\]/\[securitygroup\]\nenable_ipset = True\n/" /etc/neutron/plugins/ml2/ml2_conf.ini
-sudo sed -i "s/^\[linux_bridge\]/\[linux_bridge\]\nphysical_interface_mappings = provider:enp0s3\n/" /etc/neutron/plugins/ml2/linuxbridge_agent.ini
-sudo sed -i "s/^\[vxlan\]/\[vxlan\]\nenable_vxlan = True\nlocal_ip = 10.0.0.101\nl2_population = True\n/" /etc/neutron/plugins/ml2/linuxbridge_agent.ini
+sudo sed -i "s/^\[linux_bridge\]/\[linux_bridge\]\nphysical_interface_mappings = provider:eth0\n/" /etc/neutron/plugins/ml2/linuxbridge_agent.ini
+sudo sed -i "s/^\[vxlan\]/\[vxlan\]\nenable_vxlan = True\nlocal_ip = 10.0.0.4\nl2_population = True\n/" /etc/neutron/plugins/ml2/linuxbridge_agent.ini
 sudo sed -i "s/^\[securitygroup\]/\[securitygroup\]\nenable_security_group = True\nfirewall_driver = neutron.agent.linux.iptables_firewall.IptablesFirewallDriver\n/" /etc/neutron/plugins/ml2/linuxbridge_agent.ini
 sudo sed -i "s/^\[DEFAULT\]/\[DEFAULT\]\ninterface_driver = neutron.agent.linux.interface.BridgeInterfaceDriver\nexternal_network_bridge =\n/" /etc/neutron/l3_agent.ini
 sudo sed -i "s/^\[DEFAULT\]/\[DEFAULT\]\ninterface_driver = neutron.agent.linux.interface.BridgeInterfaceDriver\ndhcp_driver = neutron.agent.linux.dhcp.Dnsmasq\nenable_isolated_metadata = True\n/" /etc/neutron/dhcp_agent.ini

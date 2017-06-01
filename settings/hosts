@@ -6,5 +6,5 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ff02::3 ip6-allhosts
 127.0.1.1       ubuntu-xenial   ubuntu-xenial
-10.0.0.101 controller
-10.0.0.102 compute
+10.0.0.4 controller
+10.0.0.5 compute
