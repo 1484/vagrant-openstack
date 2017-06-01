@@ -23,3 +23,10 @@ Vagrantは最新ではありません、最新で動かなかった場合は上�
 ### NAT環境
 Windows上にインストールしたVertualBoxの仮想マシン上で環境を構築しているため、controller上に構築されるHorizonへアクセスするなどNAT環境を構築しています。127.0.0.1:80 へNATしていますので、あなたの環境で都合が悪い場合はVagrantfileの記載を修正してください。
 
+## Branch
+masterブランチとazureブランチを切っています。VirtualBoxで使う方はmasterブランチを、azureで使う方はazureブランチをお使いいただければ良いかと思います。
+
+### azure branch
+azure branchではVagrantfile以外にENVを用いてazureのアカウント設定を行う必要があります。まだ説明書き等は追いついていません。
+
+またazure branchではまだ動作確認が不十分で正常に動作しない事がわかっています。
