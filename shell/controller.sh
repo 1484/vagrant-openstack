@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 sudo cp /vagrant/settings/hosts /etc/hosts
 sudo add-apt-repository cloud-archive:newton -y
 sudo apt-get update
@@ -71,7 +71,7 @@ sudo sed -i "s/^sqlite_db = \/var\/lib\/glance\/glance.sqlite/#sqlite_db = \/var
 sudo sed -i "s/^\[keystone_authtoken\]/\[keystone_authtoken\]\nauth_uri = http:\/\/controller:5000\nauth_url = http:\/\/controller:35357\nmemcached_servers = controller:11211\nauth_type = password\nproject_domain_name = default\nuser_domain_name = default\nproject_name = service\nusername = glance\npassword = password\n/" /etc/glance/glance-api.conf
 sudo sed -i "s/^\[paste_deploy\]/\[paste_deploy\]\nflavor = keystone\n/" /etc/glance/glance-api.conf
 
-sudo sed -i "s/^sqlite_db = \/var\/lib\/glance\/glance.sqlite/#sqlite_db = \/var\/lib\/glance\/glance.sqlite\nconnection = mysql+pymysql:\/\/glance:password@controller\/glance/" /etc/glance/glance-registory.conf                   sudo sed -i "s/^\[keystone_authtoken\]/\[keystone_authtoken\]\nauth_uri = http:\/\/controller:5000\nauth_url = http:\/\/controller:35357\nmemcached_servers = controller:11211\nauth_type = password\nproject_domain_name = default\nuser_domain_name = default\nproject_name = service\nusername = glance\npassword = password\n/" /etc/glance/glance-registry.conf
+sudo sed -i "s/^sqlite_db = \/var\/lib\/glance\/glance.sqlite/#sqlite_db = \/var\/lib\/glance\/glance.sqlite\nconnection = mysql+pymysql:\/\/glance:password@controller\/glance/" /etc/glance/glance-registry.conf                   sudo sed -i "s/^\[keystone_authtoken\]/\[keystone_authtoken\]\nauth_uri = http:\/\/controller:5000\nauth_url = http:\/\/controller:35357\nmemcached_servers = controller:11211\nauth_type = password\nproject_domain_name = default\nuser_domain_name = default\nproject_name = service\nusername = glance\npassword = password\n/" /etc/glance/glance-registry.conf
 sudo sed -i "s/^\[paste_deploy\]/\[paste_deploy\]\nflavor = keystone\n/" /etc/glance/glance-registry.conf
 sudo sed -i "s/^\[keystone_authtoken\]/\[keystone_authtoken\]\nauth_uri = http:\/\/controller:5000\nauth_url = http:\/\/controller:35357\nmemcached_servers = controller:11211\nauth_type = password\nproject_domain_name = default\nuser_domain_name = default\nproject_name = service\nusername = glance\npassword = password\n/" /etc/glance/glance-registry.conf
 sudo su -s /bin/sh -c "glance-manage db_sync" glance

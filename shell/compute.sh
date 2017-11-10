@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 sudo cp /vagrant/settings/hosts /etc
 sudo add-apt-repository cloud-archive:newton -y
 sudo apt-get update
