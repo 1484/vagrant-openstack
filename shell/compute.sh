@@ -1,6 +1,6 @@
 #!/bin/sh
 sudo cp /vagrant/settings/hosts /etc
-sudo add-apt-repository cloud-archive:newton -y
+sudo add-apt-repository cloud-archive:queens -y
 sudo apt-get update
 sudo apt-get dist-upgrade -y
 sudo apt-get install chrony -y

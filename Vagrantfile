@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
 
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "ubuntu/bionic64"
 
   config.vm.define :controller do | controller |
     controller.vm.hostname = "controller"
@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--memory", 4192]
     end
     controller.vm.network :private_network, ip: "10.0.0.101", virtualbox__intnet: "intnet"
-    controller.vm.network :forwarded_port, guest: 80, host: 80, protocol: "tcp", host_ip: "empty"
+#    controller.vm.network :forwarded_port, guest: 80, host: 80, protocol: "tcp", host_ip: "empty"
     controller.vm.provision "shell", path: "shell/controller.sh"
   end
 

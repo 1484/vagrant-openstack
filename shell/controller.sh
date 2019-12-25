@@ -1,6 +1,6 @@
 #!/bin/sh
 sudo cp /vagrant/settings/hosts /etc/hosts
-sudo add-apt-repository cloud-archive:newton -y
+sudo add-apt-repository cloud-archive:queens -y
 sudo apt-get update
 sudo apt-get dist-upgrade -y
 sudo apt-get install python-openstackclient python-pymysql -y
@@ -36,6 +36,7 @@ sudo keystone-manage bootstrap --bootstrap-password password \
   --bootstrap-internal-url http://controller:35357/v3/ \
   --bootstrap-public-url http://controller:5000/v3/ \
   --bootstrap-region-id RegionOne
+sudo apt install apache2 -y
 sudo sed -i "s/^# Global configuration/# Global configuration\nServerName controller/" /etc/apache2/apache2.conf
 sudo service apache2 restart
 sudo rm /var/lib/keystone/keystone.db
