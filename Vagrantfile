@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--memory", 4192]
     end
     controller.vm.network :private_network, ip: "10.0.0.101", virtualbox__intnet: "intnet"
-    controller.vm.network :forwarded_port, guest: 80, host: 8880, protocol: "tcp", host_ip: "empty"
+    controller.vm.network :forwarded_port, guest: 80, host: 8880, protocol: "tcp", host_ip: ""
     controller.vm.provision "shell", path: "shell/controller.sh"
   end
 
