@@ -4,12 +4,12 @@
 ## 動作環境
 次の環境で動作確認を行っています。
 
-- Microsoft Surface Pro4 (8GB memory)
-  - Windows10 Professional
-    - Vagrant 1.9.3
-    - VirtualBox 5.1.22
+- NEC LAVIE ProMobile
+  - Ubuntu Desktop 19.10
+    - Vagrant 2.2.3+dfsg-1ubuntu2
+    - VirtualBox 6.0.14-dfsg-1
 
-Vagrantは最新ではありません、最新で動かなかった場合は上記Versionにてお試しいただければと思います。
+どちらもaptで入れられるVerisonです。Oracleのサイトからダウンロード可能なVirtualBox6.1などはまだvagrant側が対応していないのでaptで入れられるものを用いるようにしてください。
 
 ## 設定
 構築手順書の環境から少し変更を加えております。
@@ -21,12 +21,8 @@ Vagrantは最新ではありません、最新で動かなかった場合は上�
 あなたの動作させようとする環境に応じてVagrantfileの編集をする事でより快適に動作させる事が可能かと思います。
 
 ### NAT環境
-Windows上にインストールしたVertualBoxの仮想マシン上で環境を構築しているため、controller上に構築されるHorizonへアクセスするなどNAT環境を構築しています。127.0.0.1:80 へNATしていますので、あなたの環境で都合が悪い場合はVagrantfileの記載を修正してください。
+まっさらに用意したLinux環境にvagrantとvirtualboxだけ入れることで動くようにしたためvagrant内で作成可能なネットワークのみで作るようにしています。
+そのためcontrollerノードに構築したhorizonへアクセスする際はloalhostにNATしたポートへ接続する様になります。
 
-## Branch
-masterブランチとazureブランチを切っています。VirtualBoxで使う方はmasterブランチを、azureで使う方はazureブランチをお使いいただければ良いかと思います。
-
-### azure branch
-azure branchではVagrantfile以外にENVを用いてazureのアカウント設定を行う必要があります。まだ説明書き等は追いついていません。
-
-またazure branchではまだ動作確認が不十分で正常に動作しない事がわかっています。
+## 導入後
+settingsディレクトリに入っているadmin-openrcやdemo-openrcを用いて学習することが出来ます。またWebブラウザで http://localhost:8880/horizon/ へアクセスする事でWebUIでのコントロールも可能です。ログインするID等はopenrcファイルの中身を確認してください。
