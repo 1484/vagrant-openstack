@@ -10,7 +10,7 @@ sudo apt-get install chrony -y
 sudo sed -i "s/pool 2.debian.pool.ntp.org offline iburst/#pool ntp.nict.jp offline iburst/g" /etc/chrony/chrony.conf
 sudo sh -c "echo 'server controller iburst' >> /etc/chrony/chrony.conf"
 sudo service chrony restart
-sudo apt-get install nova-compute -y
+sudo apt-get install nova-compute nova-compute-qemu -y
 sudo sed -i "s/^enabled_apis=ec2,osapi_compute,metadata/enabled_apis = osapi_compute,metadata/" /etc/nova/nova.conf
 sudo sed -i "s/^\[DEFAULT\]/\[DEFAULT\]\ntransport_url = rabbit:\/\/openstack:password@controller\nauth_strategy = keystone\nuse_neutron = True\nfirewall_driver = nova.virt.firewall.NoopFirewallDriver\nmy_ip = 10.0.0.102\n/" /etc/nova/nova.conf
 sudo sh -c "cat <<'EOF'>>/etc/nova/nova.conf
