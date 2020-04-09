@@ -9,7 +9,10 @@
     - Vagrant 2.2.3+dfsg-1ubuntu2
     - VirtualBox 6.0.14-dfsg-1
 
-どちらもaptで入れられるVerisonです。Oracleのサイトからダウンロード可能なVirtualBox6.1などはまだvagrant側が対応していないのでaptで入れられるものを用いるようにしてください。
+- NEC LAVIE ProMobile
+  - Windows 10 pro
+    - Vagrant 2.2.7 for Windows 64bit
+    - VirtualBox 6.1.4 for Windows 64bit
 
 ## 設定
 構築手順書の環境から少し変更を加えております。
@@ -20,7 +23,7 @@ controllerノードは4GBでも動作しますがhorizonを用いる際にかな
 あなたの動作させようとする環境に応じてVagrantfileの編集をする事でより快適に動作させる事が可能かと思います。
 
 ### NAT環境
-まっさらに用意したLinux環境にvagrantとvirtualboxだけ入れることで動くようにしたためvagrant内で作成可能なネットワークのみで作るようにしています。
+まっさらに用意したLinux/Windows環境にvagrantとvirtualboxだけ入れることで動くようにしたためvagrant内で作成可能なネットワークのみで作るようにしています。
 そのためcontrollerノードに構築したhorizonへアクセスする際はloalhostにNATしたポートへ接続する様になります。
 
 ## 導入後
